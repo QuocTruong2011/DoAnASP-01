@@ -1,0 +1,75 @@
+﻿@model DoAnASP.Models.Account
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using DoAnASP.wwwroot.common;
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <h1>Tạo Tài Khoản</h1>
+    <div class="row" >
+        <div class="col-md-4" >
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Usename" class="control-label">Tên Đăng Nhập</label>
+                    <input asp-for="Usename" class="form-control" />
+                    <span asp-validation-for="Usename" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PassWord" class="control-label">Mật Khẩu</label>
+                    <input asp-for="PassWord" class="form-control" />
+                    <span asp-validation-for="PassWord" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Họ Và Tên</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label">Địa Chỉ</label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label">Số điện thoại</label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                @if (HttpContextAccessor.HttpContext.Session.GetString(SessionCommon.SessionAdmin) == "Admin")
+                {
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
+                        </label>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label">Ảnh đại diện</label>
+                    <input asp-for="ImageFile" class="form-control" />
+                    <span asp-validation-for="avatar" class="text-danger"></span>
+                </div>
+                @if (HttpContextAccessor.HttpContext.Session.GetString(SessionCommon.SessionKTUserName) == "False")
+                {
+                    @ViewBag.TrungUsename
+                }
+                <div class="form-group">
+                    <input type="submit" value="Tạo Tài Khoản" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (HttpContextAccessor.HttpContext.Session.GetString(SessionCommon.SessionAdmin) == "Admin")
+    {
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    }
+    @*@ViewBag.errUsername*@
+</div>

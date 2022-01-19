@@ -1,0 +1,101 @@
+﻿@model IEnumerable<DoAnASP.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h1>Danh Sách Tài Khoản</h1>
+    @if (ViewBag.CreateTK != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.CreateTK;
+        </div>
+
+    }
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <form asp-controller="Accounts" asp-action="SearchAccount" method="get">
+        <div class="input-group">
+            <input type="text" name="SearchAccount" class="form-control" placeholder="Tìm Kiếm ...">
+            <div class="input-group-append">
+                <span class="input-group-text bg-transparent text-primary">
+                    <button type="submit" class="fa fa-search"></button>
+                </span>
+            </div>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usename)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PassWord)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAdmin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.avatar)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usename)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PassWord)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsAdmin)
+                    </td>
+                    <td>
+                        <img class="img-fluid w-100" src="~/image/account/@item.avatar" alt="">
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.AccountId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.AccountId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.AccountId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

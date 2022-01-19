@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DoAnASP.Models.Invoice>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h1>Danh Sách Hóa Đơn</h1>
+    <form asp-controller="Invoices" asp-action="SearchInvoice" method="get">
+        <div class="input-group">
+            <input type="text" name="SearchInvoice" class="form-control" placeholder="Tìm Kiếm ...">
+            <div class="input-group-append">
+                <span class="input-group-text bg-transparent text-primary">
+                    <button type="submit" class="fa fa-search"></button>
+                </span>
+            </div>
+        </div>
+    </form>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InvoiceId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.AccountId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.InvoiceId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.InvoiceId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.InvoiceId">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

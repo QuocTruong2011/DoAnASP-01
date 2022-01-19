@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DoAnASP.Models.Cart>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using DoAnASP.wwwroot.common;
+@{
+    ViewData["Title"] = "PayCarts";
+}
+<div class="container">
+    <div class="col-lg-4">
+        <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Chi Tiết Hóa Đơn</span></h5>
+        <h6>Tên khách Hàng</h6><h6></h6>
+        <div class="bg-light p-30 mb-5">
+            @*@foreach (var item in Model)
+                {
+                    <h6>Tên sản phẩm</h6>
+                    <h6>@Html.DisplayFor(modelItem => item.Product.ProductId)</h6>
+                    <h6>Số Lượng</h6>
+                    <h6> @Html.DisplayFor(modelItem => item.Quantity)</h6>
+                }*@
+            <div class="border-bottom pb-2">
+                <div class="d-flex justify-content-between mb-3">
+                    <h6>Tạm Tính</h6>
+                    <h6>@HttpContextAccessor.HttpContext.Session.GetString(SessionCommon.SessionTTCart)</h6>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <h6 class="font-weight-medium">Phí Giao Hàng</h6>
+                    <h6 class="font-weight-medium">20.000</h6>
+                </div>
+            </div>
+            <div class="pt-2">
+                <div class="d-flex justify-content-between mt-2">
+                    <h5>Tổng Tiền</h5>
+                    <h5>@(Convert.ToInt32(HttpContextAccessor.HttpContext.Session.GetString(SessionCommon.SessionTTCart)) + 20000.0)</h5>
+                </div>
+                @if (@HttpContextAccessor.HttpContext.Session.GetString(SessionCommon.SessionTTCart) != "0")
+                {
+                    <form asp-controller="Carts" asp-action="Pay">
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3"> Đặt Hàng</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
